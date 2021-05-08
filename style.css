@@ -17,7 +17,7 @@ html, body {
 }
 
 body {
-	background: #aaa;
+	background: #000;
 }
 
 canvas {
@@ -66,8 +66,8 @@ canvas {
 	position: absolute;
 	width: 100px;
 	height: 96px;
-	right: 15px;
-	bottom: 30px;
+	left: 20px;
+	bottom: 20px;
 	cursor: pointer;
 }
 #gun img {

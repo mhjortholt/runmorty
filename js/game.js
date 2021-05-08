@@ -61,13 +61,13 @@ function gameLoop() {
 }
 
 let morty = new Player({
-	x: 100, 
+	x: 160, 
 	y: 40, 
 	dy: 0,
 	width: 20,
 	height: 100
 });
-morty.addHitbox('feet', { x: 0, y: 100, width: 30, height: 5 });
+morty.addHitbox('feet', { x: -5, y: 100, width: 30, height: 5 });
 morty.addHitbox('front',{ x: 20, y: 0, width: 5, height: 90 });
 
 
@@ -94,8 +94,12 @@ function jump() {
 }
 
 function onGround() {// TODO
-	let tile = world.getTile();
-	return touches(morty.getHitbox('feet'), tile);
+	let tiles = world.getTiles();
+	for(let i = 0; i < tiles.length; i++) {
+		let tile = tiles[i];
+		if(touches(morty.getHitbox('feet'), tile)) return true;
+	}
+	return false;
 }
 
 let portals = [];
@@ -135,23 +139,32 @@ function drawShixt() {
 	let hit = morty.getHitbox('feet');
 	ctx.rect( hit.x, hit.y, hit.width, hit.height);
 	ctx.fill();
+/*
+	ctx.beginPath();
+	ctx.fillStyle = '#f00';
+	hit = morty.getHitbox('front');
+	ctx.rect( hit.x, hit.y, hit.width, hit.height);
+	ctx.fill();
+	*/
 
 }
 
 function detectCollisions() {
-	let tile = world.getTile();
+	let tiles = world.getTiles();
 
-	// TODO check next tile as well?
-	if(touches(morty.getHitbox('feet'), tile)) { // under ground
+	for(let i = 0; i < tiles.length; i++) {
+		let tile = tiles[i];
+		if(touches(morty.getHitbox('feet'), tile)) { // under ground
 
-		if(touches(morty.getHitbox('front'), tile)) { // hit a wall
-			die('Hit a wall');
-			return;
+			if(touches(morty.getHitbox('front'), tile)) { // hit a wall
+				die('Hit a wall');
+				return;
+			}
+			
+			// land
+			morty.y = tile.y-morty.height;
+			morty.dy = 0;
 		}
-		
-		// land
-		morty.y = tile.y-morty.height;
-		morty.dy = 0;
 	}
 
 	if (touches(morty.getHitbox('feet'), { x:0, y: 360, width: 300, height: 300 })) { // lava

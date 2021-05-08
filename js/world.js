@@ -24,6 +24,8 @@ var World = function(config) {
 	tiles.push(...platforms());
 	tiles.push(...straight(5));
 
+	//let dummyTile = { y: 1000, width: that.tileWidth, height: 100};
+
 	let fluids = [
 		{ x: 500, y: 200, width: 48, height: 48, visible: true },
 		{ x: 600, y: 200, width: 48, height: 48, visible: true },
@@ -33,7 +35,7 @@ var World = function(config) {
 
 	this.getTileId = function() {
 		// 10 is arbritary number, 0 is good
-		return Math.round((-x + 32)/that.tileWidth);
+		return Math.round((-x + morty.x) / that.tileWidth);
 	};
 
 	this.getTile = function() {
@@ -41,13 +43,32 @@ var World = function(config) {
 		return i < tiles.length ? tiles[i] : { y: 1000, width: that.tileWidth, height: 100};
 	};
 
+	this.getTiles = function() {
+		let i = that.getTileId();
+		let arr = [];
+		if (i > 0 && i-1 < tiles.length) {
+			let t = tiles[i-1];
+			t.x = x + ((i-1)*that.tileWidth);
+			arr.push(t);
+		}
+		if (i < tiles.length) {
+			let t = tiles[i];
+			t.x = x + (i*that.tileWidth);
+			arr.push(t);
+		}
+		return arr;
+	};
+
 	this.draw = function() {
-		let c = that.getTile();
+		let ts = that.getTiles();
+		let a = ts[0];
+		let b = ts[1];
 
 		tiles.forEach((tile, i) => {
 			ctx.beginPath();
 			ctx.fillStyle = "#ebd160";
-			//if (c === tile) ctx.fillStyle = "#f00";
+			//if (a === tile) ctx.fillStyle = "#0f0";
+			//if (b === tile) ctx.fillStyle = "#f00";
 			ctx.rect(x + (i*that.tileWidth), y+tile.y, that.tileWidth, tile.height);
 			ctx.fill();
 		});
@@ -74,7 +95,7 @@ var World = function(config) {
 	function straight(length = 10) {
 		let list = [];
 		for(let i = 0; i < length; i++) {
-			list.push({ x: 28, y: 260, width: that.tileWidth, height: 200});
+			list.push({ x: 0, y: 260, width: that.tileWidth, height: 200});
 		}
 		return list;
 	}
@@ -82,22 +103,22 @@ var World = function(config) {
 	function dip(length = 5) {
 		let list = [];
 		for(let i = 0; i < length; i++) {
-			list.push({ x: 28, y: 340, width: that.tileWidth, height: 200});
+			list.push({ x: 0, y: 340, width: that.tileWidth, height: 200});
 		}
 		return list;
 	}
 
 	function gap() {
-		return [{ x: 28, y: 500, width: that.tileWidth, height: 10}];
+		return [{ x: 0, y: 500, width: that.tileWidth, height: 10}];
 	}
 
 	function platforms() {
 		return [
-			{ x: 28, y: 260, width: that.tileWidth, height: 10},
+			{ x: 0, y: 260, width: that.tileWidth, height: 10},
 			...gap(),
-			{ x: 28, y: 230, width: that.tileWidth, height: 10},
+			{ x: 0, y: 230, width: that.tileWidth, height: 10},
 			...gap(),
-			{ x: 28, y: 260, width: that.tileWidth, height: 10},
+			{ x: 0, y: 260, width: that.tileWidth, height: 10},
 		];
 	}
 };
