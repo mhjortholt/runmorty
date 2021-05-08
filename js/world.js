@@ -8,27 +8,11 @@ var World = function(config) {
 	
 
 	let tiles = [];
-	tiles.push(...straight(5));
-	tiles.push(...gap());
-	tiles.push(...straight(5));
-	tiles.push(...gap());
-	tiles.push(...platforms());
-	tiles.push(...gap());
-	tiles.push(...platforms());
-	tiles.push(...gap());
-	tiles.push(...straight(5));
-	tiles.push(...dip(5));
-	tiles.push(...straight(2));
-	tiles.push(...dip(1));
-	tiles.push(...straight(2));
-	tiles.push(...platforms());
-	tiles.push(...straight(5));
 
 	let fluids = [
 		{ x: 500, y: 200, width: 48, height: 48, visible: true },
-		{ x: 600, y: 200, width: 48, height: 48, visible: true },
 	];
-
+	generateWorld(false);
 
 	this.getTileId = function() {
 		return Math.round((-x + morty.x) / that.tileWidth);
@@ -101,9 +85,10 @@ var World = function(config) {
 
 	this.reset = function() {
 		x = 0;
+		generateWorld();
 	};
 
-	function straight(length = 10) {
+	function straight(length = 3) {
 		let list = [];
 		for(let i = 0; i < length; i++) {
 			list.push({ x: 0, y: 260, width: that.tileWidth, height: 200});
@@ -131,5 +116,98 @@ var World = function(config) {
 			...gap(),
 			{ x: 0, y: 260, width: that.tileWidth, height: 10},
 		];
+	}
+
+	function bigPlatforms() {
+		return [
+			...gap(),
+			{ x: 0, y: 290, width: that.tileWidth, height: 30},
+			...gap(),
+			{ x: 0, y: 260, width: that.tileWidth, height: 30},
+			...gap(),
+			{ x: 0, y: 230, width: that.tileWidth, height: 30},
+			...gap(),
+			{ x: 0, y: 260, width: that.tileWidth, height: 30},
+			...gap(),
+			{ x: 0, y: 260, width: that.tileWidth, height: 30},
+			...gap(),
+			{ x: 0, y: 230, width: that.tileWidth, height: 30},
+			...gap(),
+			{ x: 0, y: 290, width: that.tileWidth, height: 30},
+			...gap(),
+			{ x: 0, y: 260, width: that.tileWidth, height: 30},
+		];
+	}
+
+	function stairs() {
+		return [
+			{ x: 0, y: 260, width: that.tileWidth, height: 500},
+			{ x: 0, y: 250, width: that.tileWidth, height: 500},
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+			{ x: 0, y: 230, width: that.tileWidth, height: 500},
+			{ x: 0, y: 220, width: that.tileWidth, height: 500},
+			{ x: 0, y: 210, width: that.tileWidth, height: 500},
+			{ x: 0, y: 200, width: that.tileWidth, height: 500},
+			{ x: 0, y: 190, width: that.tileWidth, height: 500},
+			{ x: 0, y: 180, width: that.tileWidth, height: 500},
+		];
+	}
+
+	function bigStairs() {
+		return [
+			{ x: 0, y: 260, width: that.tileWidth, height: 500},
+			{ x: 0, y: 230, width: that.tileWidth, height: 500},
+			{ x: 0, y: 200, width: that.tileWidth, height: 500},
+			{ x: 0, y: 170, width: that.tileWidth, height: 500},
+		];
+	}
+	function pillars() {
+		return [
+			...gap(),
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+			...gap(),
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+			...gap(),
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+			...gap(),
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+			...gap(),
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+		];
+	}
+
+	function generateWorld(add_fluids = true) {
+		// Reset
+		if (add_fluids) {
+			fluids = [];
+		}
+		tiles = [];
+
+
+		tiles.push(...straight(5)); // Always start with a straight
+		let sections = Math.floor(Math.random() * 20) + 5;
+
+		for(let i = 0; i < sections; i++) {
+			let r = Math.floor(Math.random() * 7);
+			switch (r) {
+				case 0: tiles.push(...straight(5)); break;
+				case 1: tiles.push(...platforms()); break;
+				case 2: tiles.push(...[...gap(), ...straight(3)]); break;
+				case 3: tiles.push(...dip(3)); break;
+				case 4: tiles.push(...stairs()); break;
+				case 5: tiles.push(...bigStairs()); break;
+				case 6: tiles.push(...bigPlatforms()); break;
+			}
+			
+		}
+
+		// add fluids
+		if (add_fluids) {
+			let r = random(1,5);
+			let total = tiles.length * that.tileWidth;
+			for( let i = 0; i < r; i++) {
+				fluids.push( { x: random(300, total), y: 200, width: 48, height: 48, visible: true });
+			}
+		}
 	}
 };

@@ -12,8 +12,8 @@ function start() {
 
 let backgrounds = [
 	background_01, background_02, background_03, background_04, background_05,
-	background_06, background_07, background_08, background_09, background_10,
-	background_11, background_12, background_13, background_14, background_15
+	background_06, background_07, background_08, background_09,
+	background_11, background_12, background_14
 ];
 function changeBackground() {
 	background_ctx.clearRect(0, 0, background.width, background.height);
@@ -119,7 +119,7 @@ function onGround() {// TODO
 
 let portals = [{x: 30, y: 0}];
 let gun = {
-	ammo: 10
+	ammo: 0
 }
 function shoot() {
 	if(gun.ammo > 0) {
