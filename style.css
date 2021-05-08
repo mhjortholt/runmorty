@@ -1,0 +1,82 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	font-family: 'Coming Soon', sans-serif;
+	color: #333;
+	text-transform: uppercase;
+	text-shadow: 0px 0px 5px #666;
+	font-weight: bold;
+	
+	-webkit-touch-callout: none;
+	-webkit-user-select: none; /* Disable selection/copy in UIWebView */
+	-webkit-tap-highlight-color: transparent;
+
+	 position: fixed; top: 0; left: 0; right:0; bottom: 0;
+}
+
+body {
+	background: #aaa;
+}
+
+canvas {
+	position: fixed;
+	background: transparent;
+}
+
+#canvas {
+	/*background: #fff;*/
+}
+#canvas_container {
+	color: gold;
+	height: 100%;
+}
+
+#foreground {
+	pointer-events: none;
+}
+
+#images {
+	display: none;
+}
+
+#score {
+	z-index: 100;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+#fps {
+	z-index: 100;
+	position: absolute;
+	left: 20px;
+	top: 20px;
+}
+#logo {
+	image-rendering: pixelated;
+	position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+	background: #000;
+	text-align: center;
+	padding-top: 45px;
+	cursor: pointer;
+}
+
+#gun {
+	position: absolute;
+	width: 100px;
+	height: 96px;
+	right: 15px;
+	bottom: 30px;
+	cursor: pointer;
+}
+#gun img {
+	image-rendering: pixelated;
+	width: 100%;
+}
+
+ #background {
+ 	position: fixed;
+ 	left: 0;
+ 	top: 0;
+ }
