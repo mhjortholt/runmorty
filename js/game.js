@@ -46,6 +46,9 @@ function gameLoop() {
 	updateWorld();
 	detectCollisions();
 
+	// Cleanup
+	clearStuff();
+
 	// draw shixt
 	clear();
 	drawWorld();
@@ -102,7 +105,7 @@ function onGround() {// TODO
 	return false;
 }
 
-let portals = [];
+let portals = [{x: 30, y: 0}];
 let gun = {
 	ammo: 0
 }
@@ -260,6 +263,18 @@ function updateWorld() {
 	portals.forEach((portal) => {
 		portal.x -= 4;
 	});
+}
+
+function clearStuff() {
+	let remove = null;
+	portals.forEach((portal, i) => {
+		if (portal.x < -192) {
+			remove = i;
+		}
+	});
+	if(remove !== null) {
+		portals.splice(remove, 1);
+	}
 }
 
 function addScore(s) {
