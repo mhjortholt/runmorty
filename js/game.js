@@ -131,6 +131,8 @@ function shoot() {
 		});
 		gun.ammo--;
 		updateGunImage();
+	} else {
+		sounds.klick();
 	}
 }
 
@@ -257,11 +259,14 @@ function drawWorld() {
 	});
 }
 
+let foreground_img = lava_img;
 function drawForeground() {
-	// lava
-	ctx.imageSmoothingEnabled = false;
-	for(let i = 0; i < 8; i++) {
-		ctx.drawImage( lava_img, lava.x + (32*scale * i), lava.y, 32 * scale, 32 * scale);
+	// lava (and other stuff)
+	if (foreground_img){
+		ctx.imageSmoothingEnabled = false;
+		for(let i = 0; i < 8; i++) {
+			ctx.drawImage( foreground_img, lava.x + (32*scale * i), lava.y, 32 * scale, 32 * scale);
+		}
 	}
 }
 
@@ -324,6 +329,14 @@ function teleport(portal) {
 
 	gravity = (Math.floor(Math.random() * 55) + 25) / 100;
 	log('Gravity', gravity);
+
+	switch(random(0,3)) {
+		case 0: foreground_img = lava_img; break;
+		case 1: foreground_img = acid_img; break;
+		case 2: foreground_img = water_img; break;
+		case 3: foreground_img = null; break;
+	}
+
 
 	changeBackground();
 	world.changeColor();

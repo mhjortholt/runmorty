@@ -20,6 +20,8 @@ let sounds = new (function() {
 
 	var portal = new Audio('./sound/portal.m4a');
 	var portal2 = new Audio('./sound/portal2.m4a');
+	var klick = new Audio('./sound/klick.wav');
+	klick.volume = 0.4;
 
 	this.portal = function() {
 		if(SOUND) {
@@ -34,5 +36,12 @@ let sounds = new (function() {
 			portal.play();
 		}
 	};
+
+	this.klick = function() {
+		if(SOUND) {
+			klick.currentTime = 0;
+			klick.play();
+		}
+	}
 
 })();

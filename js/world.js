@@ -188,7 +188,7 @@ var World = function(config) {
 		let sections = Math.floor(Math.random() * 20) + 5;
 
 		for(let i = 0; i < sections; i++) {
-			let r = Math.floor(Math.random() * 7);
+			let r = Math.floor(Math.random() * 8);
 			switch (r) {
 				case 0: tiles.push(...straight(5)); break;
 				case 1: tiles.push(...platforms()); break;
@@ -197,6 +197,7 @@ var World = function(config) {
 				case 4: tiles.push(...stairs()); break;
 				case 5: tiles.push(...bigStairs()); break;
 				case 6: tiles.push(...bigPlatforms()); break;
+				case 7: tiles.push(...pillars()); break;
 			}
 			
 		}
@@ -206,7 +207,9 @@ var World = function(config) {
 			let r = random(1,5);
 			let total = tiles.length * that.tileWidth;
 			for( let i = 0; i < r; i++) {
-				fluids.push( { x: random(300, total), y: 200, width: 48, height: 48, visible: true });
+				let dist = random(300, total);
+				let tile = tiles[Math.round(dist / that.tileWidth)];
+				fluids.push( { x: dist, y: tile.y-64, width: 48, height: 48, visible: true });
 			}
 		}
 	}
