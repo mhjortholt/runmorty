@@ -62,13 +62,13 @@ function gameLoop() {
 
 let morty = new Player({
 	x: 160, 
-	y: 40, 
+	y: 24,
 	dy: 0,
 	width: 20,
-	height: 100
+	height: 112
 });
-morty.addHitbox('feet', { x: -5, y: 100, width: 30, height: 5 });
-morty.addHitbox('front',{ x: 20, y: 0, width: 5, height: 90 });
+morty.addHitbox('feet', { x: 10, y: 112, width: 40, height: 5 });
+morty.addHitbox('front',{ x: 45, y: 10, width: 5, height: 90 });
 
 
 let gravity = 0.45;
@@ -139,13 +139,13 @@ function drawShixt() {
 	let hit = morty.getHitbox('feet');
 	ctx.rect( hit.x, hit.y, hit.width, hit.height);
 	ctx.fill();
-/*
+
 	ctx.beginPath();
 	ctx.fillStyle = '#f00';
 	hit = morty.getHitbox('front');
 	ctx.rect( hit.x, hit.y, hit.width, hit.height);
 	ctx.fill();
-	*/
+
 
 }
 
@@ -212,24 +212,22 @@ function clear() {
 }
 
 var scale = 4;
+let animationStep = 0;
+let running = [
+	morty_run_1,
+	morty_run_2,
+	morty_run_3,
+];
 function drawMorty() {
 	ctx.beginPath();
-	ctx.save();
-	ctx.translate( morty.x, morty.y);
 	ctx.imageSmoothingEnabled = false;
-	ctx.drawImage( player, -8, -16, player.width * scale, player.height * scale);
-	ctx.restore();
-/*
-	ctx.beginPath();
-	ctx.save();
-	ctx.translate( morty.x, morty.y);
-	ctx.imageSmoothingEnabled = false;
-	ctx.drawImage( player2, -78, -68, player2.width * scale, player2.height * scale);
-	ctx.restore();
-	*/
+	if(morty.dy !== 0) {
+		ctx.drawImage( morty_jump, morty.x, morty.y, morty_jump.width * scale, morty_jump.height * scale);
+	} else {
+		let anime = running[Math.floor(animationStep++ % 9 / 3)];
+		ctx.drawImage( anime, morty.x, morty.y, anime.width * scale, anime.height * scale);
+	}
 }
-
-
 
 
 let lava = { x: 0, y: 285 }

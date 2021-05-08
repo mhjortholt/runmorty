@@ -22,4 +22,5 @@ let Player = function(config) {
 		}
 		return hitbox;
 	};
+
 }
