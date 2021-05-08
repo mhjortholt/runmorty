@@ -200,6 +200,7 @@ function detectCollisions() {
 	world.getFluids().forEach((fluid) => {
 		if(fluid.visible && touches(morty.getHitbox('front'), fluid)) {
 			fluid.visible = false;
+			sounds.glass();
 			log('Picked up fluid');
 			gun.ammo++;
 			updateGunImage();
