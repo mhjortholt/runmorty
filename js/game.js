@@ -5,17 +5,23 @@ function start() {
 	addScore(0);
 
 	//background
-	background_ctx.beginPath();
-	background_ctx.imageSmoothingEnabled = false;
-	let backgrounds = [
-		background_01, background_02, background_03, background_04, background_05,
-		background_06, background_07, background_08, background_09, background_10,
-		background_11, background_12, background_13, background_14, background_15
-	];
-	let bg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-	background_ctx.drawImage(bg, 0, 0, bg.width * scale, bg.height * scale);
+	changeBackground();
 
 	gameLoop();
+}
+
+let backgrounds = [
+	background_01, background_02, background_03, background_04, background_05,
+	background_06, background_07, background_08, background_09, background_10,
+	background_11, background_12, background_13, background_14, background_15
+];
+function changeBackground() {
+	background_ctx.clearRect(0, 0, background.width, background.height);
+	background_ctx.beginPath();
+	background_ctx.imageSmoothingEnabled = false;
+	
+	let bg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+	background_ctx.drawImage(bg, 0, 0, bg.width * scale, bg.height * scale);
 }
 
 function checkInput() {
@@ -113,7 +119,7 @@ function onGround() {// TODO
 
 let portals = [{x: 30, y: 0}];
 let gun = {
-	ammo: 0
+	ammo: 10
 }
 function shoot() {
 	if(gun.ammo > 0) {
@@ -184,7 +190,7 @@ function detectCollisions() {
 
 	portals.forEach((portal) => {
 		if (touches(morty.getHitbox('front'), { x: portal.x + 72, y: portal.y + 72, width: 48, height: 48 })) {
-			die('Teleported');
+			teleport(portal);
 			return;
 		}
 	});
@@ -291,6 +297,7 @@ function addScore(s) {
 
 function die(reason) {
 	log('💀 Dead! Cause: ' + reason);
+	document.getElementById('reason').innerHTML = 'Cause of death: ' + reason;
 	stop();
 	document.getElementById('end_screen').style.display = 'block';
 }
@@ -306,4 +313,20 @@ function restart() {
 	location.reload();
 }
 
+function teleport(portal) {
+	log('Teleported');
+	sounds.teleport();
+	portals = [];
+	portals = [{x: 30, y: 0}]; // start portal
+
+	morty.y = 24;
+	//morty.dy = 0;
+
+	gravity = (Math.floor(Math.random() * 55) + 25) / 100;
+	log('Gravity', gravity);
+
+	changeBackground();
+	world.changeColor();
+	world.reset();
+}
 

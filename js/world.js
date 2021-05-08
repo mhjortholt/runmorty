@@ -24,17 +24,13 @@ var World = function(config) {
 	tiles.push(...platforms());
 	tiles.push(...straight(5));
 
-	//let dummyTile = { y: 1000, width: that.tileWidth, height: 100};
-
 	let fluids = [
 		{ x: 500, y: 200, width: 48, height: 48, visible: true },
 		{ x: 600, y: 200, width: 48, height: 48, visible: true },
-		{ x: 3600, y: 200, width: 48, height: 48, visible: true },
 	];
 
 
 	this.getTileId = function() {
-		// 10 is arbritary number, 0 is good
 		return Math.round((-x + morty.x) / that.tileWidth);
 	};
 
@@ -64,7 +60,11 @@ var World = function(config) {
 		'#e3e3e3','#96531b','#a3cc1d'
 
 	];
-	color = colors[Math.round(Math.random() * colors.length)];
+	let color = colors[Math.round(Math.random() * colors.length)];
+
+	this.changeColor = function() {
+		color = colors[Math.round(Math.random() * colors.length)];
+	};
 
 	this.draw = function() {
 		let ts = that.getTiles();
@@ -97,6 +97,10 @@ var World = function(config) {
 
 	this.getFluids = function() {
 		return fluids;
+	};
+
+	this.reset = function() {
+		x = 0;
 	};
 
 	function straight(length = 10) {

@@ -14,8 +14,8 @@ function diffAngle(v1, v2) {
 	return a > Math.PI ? (2 * Math.PI) - a : a;
 }
 
-function log(s) {
+function log(s, b) {
 	if(LOGGING) {
-		console.log(s);
+		console.log(s, b);
 	}
 }

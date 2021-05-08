@@ -23,7 +23,15 @@ let sounds = new (function() {
 
 	this.portal = function() {
 		if(SOUND) {
+			portal2.currentTime = 0;
 			portal2.play();
+		}
+	};
+
+	this.teleport = function() {
+		if(SOUND) {
+			portal.currentTime = 0;
+			portal.play();
 		}
 	};
 
