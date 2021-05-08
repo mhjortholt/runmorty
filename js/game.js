@@ -259,6 +259,7 @@ function addScore(s) {
 function die(reason) {
 	log('💀 Dead! Cause: ' + reason);
 	stop();
+	document.getElementById('end_screen').style.display = 'block';
 }
 
 let fps = 0, startTime = new Date();
@@ -266,6 +267,10 @@ function showFps() {
 	let fps = Math.round(1000 / (new Date() - startTime));
 	document.getElementById('fps').innerHTML = 'FPS: ' + fps;
 	startTime = new Date();
+}
+
+function restart() {
+	location.reload();
 }
 
 
