@@ -7,7 +7,13 @@ function start() {
 	//background
 	background_ctx.beginPath();
 	background_ctx.imageSmoothingEnabled = false;
-	background_ctx.drawImage(background_01, 0, 0, background_01.width * scale, background_01.height * scale);
+	let backgrounds = [
+		background_01, background_02, background_03, background_04, background_05,
+		background_06, background_07, background_08, background_09, background_10,
+		background_11, background_12, background_13, background_14, background_15
+	];
+	let bg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+	background_ctx.drawImage(bg, 0, 0, bg.width * scale, bg.height * scale);
 
 	gameLoop();
 }
