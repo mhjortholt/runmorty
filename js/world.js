@@ -59,6 +59,13 @@ var World = function(config) {
 		return arr;
 	};
 
+	let colors = [
+		'#ebd160','#eb9c60','#c9514b','#96cc58','#316885','#672d80','#a116a6','#69071c','#0a326e','#6f757d','#2c2d2e',
+		'#e3e3e3','#96531b','#a3cc1d'
+
+	];
+	color = colors[Math.round(Math.random() * colors.length)];
+
 	this.draw = function() {
 		let ts = that.getTiles();
 		let a = ts[0];
@@ -66,7 +73,7 @@ var World = function(config) {
 
 		tiles.forEach((tile, i) => {
 			ctx.beginPath();
-			ctx.fillStyle = "#ebd160";
+			ctx.fillStyle = color;
 			//if (a === tile) ctx.fillStyle = "#0f0";
 			//if (b === tile) ctx.fillStyle = "#f00";
 			ctx.rect(x + (i*that.tileWidth), y+tile.y, that.tileWidth, tile.height);

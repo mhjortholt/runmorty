@@ -18,9 +18,8 @@ let musicPlayer = new (function() {
 
 let sounds = new (function() {
 
-	var portal = new Audio('./sound/portal.mp4');
-	portal.volume = 0.5;
-	var portal2 = new Audio('./sound/portal2.mp4');
+	var portal = new Audio('./sound/portal.m4a');
+	var portal2 = new Audio('./sound/portal2.m4a');
 
 	this.portal = function() {
 		if(SOUND) {
