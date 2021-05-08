@@ -302,6 +302,12 @@ function addScore(s) {
 }
 
 function die(reason) {
+	if(reason === 'Lava') {
+		if (foreground_img === acid_img) reason = 'Dissolved in acid';
+		if (foreground_img === water_img) reason = 'Couldn\'t swim';
+		if (foreground_img === null) reason = 'Fell from a high place';
+		if (foreground_img === lava_img) reason = 'Burned in lava';
+	}
 	log('💀 Dead! Cause: ' + reason);
 	document.getElementById('reason').innerHTML = 'Cause of death: ' + reason;
 	stop();
