@@ -112,6 +112,7 @@ let gun = {
 function shoot() {
 	if(gun.ammo > 0) {
 		log('Creating portal');
+		sounds.portal();
 		portals.push({
 			x: 600,
 			y: morty.y - 50
@@ -227,7 +228,7 @@ function drawMorty() {
 	if(morty.dy !== 0) {
 		ctx.drawImage( morty_jump, morty.x, morty.y, morty_jump.width * scale, morty_jump.height * scale);
 	} else {
-		let anime = running[Math.floor(animationStep++ % 9 / 3)];
+		let anime = running[Math.floor(animationStep++ % 12 / 4)];
 		ctx.drawImage( anime, morty.x, morty.y, anime.width * scale, anime.height * scale);
 	}
 }
