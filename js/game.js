@@ -126,7 +126,7 @@ function shoot() {
 		log('Creating portal');
 		sounds.portal();
 		portals.push({
-			x: 600,
+			x: 500,
 			y: morty.y - 50
 		});
 		gun.ammo--;
@@ -202,6 +202,7 @@ function detectCollisions() {
 			fluid.visible = false;
 			sounds.glass();
 			log('Picked up fluid');
+			addScore(100);
 			gun.ammo++;
 			updateGunImage();
 		}

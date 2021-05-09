@@ -60,6 +60,7 @@ var World = function(config) {
 			ctx.fillStyle = color;
 			//if (a === tile) ctx.fillStyle = "#0f0";
 			//if (b === tile) ctx.fillStyle = "#f00";
+			if(tile.highlight)ctx.fillStyle = "#f00";
 			ctx.rect(x + (i*that.tileWidth), y+tile.y, that.tileWidth, tile.height);
 			ctx.fill();
 		});
@@ -203,13 +204,21 @@ var World = function(config) {
 		}
 
 		// add fluids
-		if (add_fluids) {
-			let r = random(1,5);
+		if (true || add_fluids) {
+			let r = random(1,15);
 			let total = tiles.length * that.tileWidth;
 			for( let i = 0; i < r; i++) {
 				let dist = random(300, total);
 				let tile = tiles[Math.round(dist / that.tileWidth)];
-				fluids.push( { x: dist, y: tile.y-64, width: 48, height: 48, visible: true });
+				
+				if(tile) {
+					//tile.highlight = true;
+					if(tile.y > 360 ) { // 360 = lava death
+						fluids.push( { x: dist, y: 160, width: 48, height: 48, visible: true });
+					} else {
+						fluids.push( { x: dist, y: tile.y-64, width: 48, height: 48, visible: true });
+					}
+				}
 			}
 		}
 	}

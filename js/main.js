@@ -7,6 +7,8 @@ window.onload = function() {
 
 	resize();
 
+	document.getElementById('start_btn').style.display = 'block';
+
 	if(AUTO_START) {
 		startGame();
 	}
