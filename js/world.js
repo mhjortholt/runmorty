@@ -205,7 +205,7 @@ var World = function(config) {
 
 		// add fluids
 		if (true || add_fluids) {
-			let r = random(1,15);
+			let r = random(1,10);
 			let total = tiles.length * that.tileWidth;
 			for( let i = 0; i < r; i++) {
 				let dist = random(300, total);
