@@ -179,15 +179,13 @@ var World = function(config) {
 	function hurdle() {
 		return [
 			...straight(1),
-			{ x: 0, y: 210, width: that.tileWidth, height: 500},
+			{ x: 0, y: 180, width: that.tileWidth, height: 500},
 			...straight(1),
 		];
 	}
 	function bridge() {
 		return [
 			{ x: 0, y: 240, width: that.tileWidth, height: 500},
-			{ x: 0, y: 250, width: that.tileWidth, height: 10},
-			{ x: 0, y: 250, width: that.tileWidth, height: 10},
 			{ x: 0, y: 250, width: that.tileWidth, height: 10},
 			{ x: 0, y: 250, width: that.tileWidth, height: 10},
 			{ x: 0, y: 250, width: that.tileWidth, height: 10},
