@@ -36,6 +36,7 @@ window.addEventListener('orientationchange', function() {
 
 function startGame() {
 	document.getElementById('logo').style.display = 'none';
+	sounds.init();
 	musicPlayer.play();
 	start();
 }
