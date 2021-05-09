@@ -176,6 +176,26 @@ var World = function(config) {
 			{ x: 0, y: 240, width: that.tileWidth, height: 500},
 		];
 	}
+	function hurdle() {
+		return [
+			...straight(1),
+			{ x: 0, y: 210, width: that.tileWidth, height: 500},
+			...straight(1),
+		];
+	}
+	function bridge() {
+		return [
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+			{ x: 0, y: 250, width: that.tileWidth, height: 10},
+			{ x: 0, y: 250, width: that.tileWidth, height: 10},
+			{ x: 0, y: 250, width: that.tileWidth, height: 10},
+			{ x: 0, y: 250, width: that.tileWidth, height: 10},
+			{ x: 0, y: 250, width: that.tileWidth, height: 10},
+			{ x: 0, y: 250, width: that.tileWidth, height: 10},
+			{ x: 0, y: 250, width: that.tileWidth, height: 10},
+			{ x: 0, y: 240, width: that.tileWidth, height: 500},
+		];
+	}
 
 	function generateWorld(add_fluids = true) {
 		// Reset
@@ -189,7 +209,7 @@ var World = function(config) {
 		let sections = Math.floor(Math.random() * 20) + 5;
 
 		for(let i = 0; i < sections; i++) {
-			let r = Math.floor(Math.random() * 8);
+			let r = Math.floor(Math.random() * 10);
 			switch (r) {
 				case 0: tiles.push(...straight(5)); break;
 				case 1: tiles.push(...platforms()); break;
@@ -199,6 +219,8 @@ var World = function(config) {
 				case 5: tiles.push(...bigStairs()); break;
 				case 6: tiles.push(...bigPlatforms()); break;
 				case 7: tiles.push(...pillars()); break;
+				case 8: tiles.push(...bridge()); break;
+				case 9: tiles.push(...hurdle()); break;
 			}
 			
 		}
